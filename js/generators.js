@@ -17,3 +17,7 @@ export function autoMine() {
     gameData.gold += gameData.goldPerSecond * deltaTime;
     updateDisplay();
 }
+
+export function calculateClickProduction() {
+    gameData.goldPerClick = gameData.pickaxeLevel * gameData.pickaxeMultiplier;
+}

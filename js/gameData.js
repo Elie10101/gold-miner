@@ -2,6 +2,8 @@ export function createDefaultData() {
     return {
         lastSaved: Date.now(),
         gold: 0,
+        pickaxeLevel: 1,
+        pickaxeMultiplier: 1,
         goldPerClick: 1,
         pickaxeCost: 10,
         goldPerSecond: 0,
@@ -30,6 +32,18 @@ export function createDefaultData() {
                 cost: 10000,
                 owned: 0,
                 production: 50
+            }
+        ],
+    
+        upgrades: [
+            {
+                id: "pickaxeUpgrade",
+                name: "Reinforced Pickaxe",
+                description: "Double gold per click.",
+                cost: 1000,
+                target: "pickaxe",
+                multiplier: 2,
+                purchased: false
             }
         ]
     }

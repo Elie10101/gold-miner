@@ -114,3 +114,27 @@ button:disabled {
     color: #86b69a;
     min-height: 18px;
 }
+
+/* NAVIGATION TABS */
+
+#tabNavigation {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+#tabNavigation button {
+    background-color: transparent;
+    color: #9ca3af;
+    border: none;
+    border-bottom: 3px solid #374151;
+    border-radius: 0;
+    flex: 1;
+    width: auto;
+}
+
+#tabNavigation button.active {
+    background-color: #1f2937;
+    color: #fbbf24;
+    border-bottom: 3px solid #fbbf24;
+}

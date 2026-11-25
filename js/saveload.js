@@ -1,6 +1,6 @@
 import { gameData, createDefaultData } from "./gameData.js";
 import { updateDisplay, showMessage } from "./display.js";
-import { autoMine } from "./generators.js";
+import { autoMine, calculateClickProduction } from "./generators.js";
 
 export function saveGame() {
     autoMine();
@@ -16,7 +16,11 @@ export function loadGame() {
         const parsedSave = JSON.parse(savedGame);
 
         gameData.gold = parsedSave.gold ?? 0;
-        gameData.goldPerClick = parsedSave.goldPerClick ?? 1;
+
+        gameData.pickaxeLevel = parsedSave.pickaxeLevel ?? parsedSave.goldPerClick ?? 1;
+        gameData.pickaxeMultiplier = parsedSave.pickaxeMultiplier ?? 1;
+        calculateClickProduction();
+        
         gameData.pickaxeCost = parsedSave.pickaxeCost ?? 10;
         gameData.lastSaved = parsedSave.lastSaved ?? Date.now();
 
