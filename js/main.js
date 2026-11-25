@@ -25,7 +25,7 @@ document.getElementById("saveButton").addEventListener("click", function() {
 
 document.getElementById("resetButton").addEventListener("click", resetGame);
 
-// INITIALIZATION yeppers
+// INITIALIZATION
 
 loadGame();
 
