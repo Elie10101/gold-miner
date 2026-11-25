@@ -48,11 +48,20 @@ export function updateDisplay() {
     }
 
     gameData.upgrades.forEach(function(upgrade) {
-        const button = document.getElementById(upgrade.id);
+    const button = document.getElementById(upgrade.id);
 
-        button.disabled = gameData.gold < upgrade.cost;
-        button.hidden = upgrade.purchased;
-});
+    button.disabled = upgrade.purchased || gameData.gold < upgrade.cost;
+
+    button.classList.toggle("purchased", upgrade.purchased);
+
+    if (upgrade.purchased) {
+        button.textContent = 
+            `${upgrade.name} - ${upgrade.description} ✓ Purchased`;
+    } else {
+        button.textContent = 
+            `${upgrade.name} - ${upgrade.description} | Cost: ${formatNumber(upgrade.cost)} Gold`;
+    }
+    });
 }
 
 export function createGeneratorButtons(buyGenerator) {

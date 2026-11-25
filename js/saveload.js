@@ -20,7 +20,7 @@ export function loadGame() {
         gameData.pickaxeLevel = parsedSave.pickaxeLevel ?? parsedSave.goldPerClick ?? 1;
         gameData.pickaxeMultiplier = parsedSave.pickaxeMultiplier ?? 1;
         calculateClickProduction();
-        
+
         gameData.pickaxeCost = parsedSave.pickaxeCost ?? 10;
         gameData.lastSaved = parsedSave.lastSaved ?? Date.now();
 
@@ -37,6 +37,18 @@ export function loadGame() {
             gameData.generators[0].owned = parsedSave.miners ?? 0;
             gameData.generators[0].cost = parsedSave.minerCost ?? 25;
         }
+
+        if (parsedSave.upgrades) {
+            gameData.upgrades.forEach(function(upgrade) {
+                const savedUpgrade = parsedSave.upgrades.find(function(saved) {
+                    return saved.id === upgrade.id;
+                });
+
+                if (savedUpgrade) {
+                    upgrade.purchased = savedUpgrade.purchased ?? false;
+                }
+        });
+}
 
         gameData.goldPerSecond = 0;
 

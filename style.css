@@ -138,3 +138,11 @@ button:disabled {
     color: #fbbf24;
     border-bottom: 3px solid #fbbf24;
 }
+
+#upgradeContainer button.purchased {
+    background-color: #14532d;
+    color: #86efac;
+    border: 1px solid #22c55e;
+    opacity: 1;
+    cursor: default;
+}
