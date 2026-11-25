@@ -16,20 +16,28 @@
     <p id="goldMined">0 Gold Mined</p>
     <button id="mineButton">Mine Gold</button>
 
+    <p id="clickProduction">1 Gold per Click</p>
+
     <h2>Upgrades</h2>
     <button id="pickaxeButton">
         Upgrade Pickaxe
     </button>
 
-    <p id="production">0 Gold per Second</p>
-    <button id="minerButton">
-        Hire Miner
-    </button>
 
-    <h2>Settings</h2>
-    <button id="saveButton">Save Game</button>
-    <button id="resetButton">Reset Game</button>
-    <p id="message"></p>
+    <div id="generatorSection" hidden>
+        <p id="production">0 Gold per Second</p>
+        <h2>Generators</h2>
+        <div id="generatorContainer"></div>
+    </div>
+
+    <div id="settingsSection">
+
+        <h2>Settings</h2>
+        <button id="saveButton">Save Game</button>
+        <button id="resetButton">Reset Game</button>
+        <p id="message"></p>
+
+    </div>
 
 </body>
 </html>

@@ -1,8 +1,9 @@
 // IMPORTS
 
 import { mineGold, autoMine } from "./generators.js";
-import { buyPickaxe, buyMiner } from "./upgrades.js";
+import { buyPickaxe, buyGenerator } from "./upgrades.js";
 import { saveGame, loadGame, resetGame } from "./saveload.js";
+import { createGeneratorButtons, showMessage } from "./display.js";
 
 
 // EVENT LISTENERS
@@ -16,16 +17,16 @@ document.addEventListener("visibilitychange", function() {
 
 document.getElementById("mineButton").addEventListener("click", mineGold);
 document.getElementById("pickaxeButton").addEventListener("click", buyPickaxe);
-document.getElementById("minerButton").addEventListener("click", buyMiner);
 
 document.getElementById("saveButton").addEventListener("click", function() {
     saveGame();
-    document.getElementById("message").textContent = "Game Saved!";
+    showMessage("Game Saved!");
 });
 
 document.getElementById("resetButton").addEventListener("click", resetGame);
 
 // INITIALIZATION
+createGeneratorButtons(buyGenerator);
 
 loadGame();
 

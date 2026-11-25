@@ -4,9 +4,34 @@ export function createDefaultData() {
         gold: 0,
         goldPerClick: 1,
         pickaxeCost: 10,
-        miners: 0,
-        minerCost: 25,
-        goldPerSecond: 0
+        goldPerSecond: 0,
+
+        generators: [
+            {
+                name: "Miner",
+                cost: 25,
+                owned: 0,
+                production: 1
+            },
+            {
+                name: "Excavator",
+                cost: 150,
+                owned: 0,
+                production: 5
+            },
+            {
+                name: "Mining Drill",
+                cost: 1000,
+                owned: 0,
+                production: 10
+            },
+            {
+                name: "Factory",
+                cost: 10000,
+                owned: 0,
+                production: 50
+            }
+        ]
     }
 }
 

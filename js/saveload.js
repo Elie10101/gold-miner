@@ -1,5 +1,5 @@
 import { gameData, createDefaultData } from "./gameData.js";
-import { updateDisplay } from "./display.js";
+import { updateDisplay, showMessage } from "./display.js";
 import { autoMine } from "./generators.js";
 
 export function saveGame() {
@@ -25,7 +25,26 @@ export function loadGame() {
         saveGame();
     }
 
+    if (Array.isArray(parsedSave.generators)) {
+        for (let i = 0; i < gameData.generators.length; i++) {
+            const savedGenerator = parsedSave.generators[i];
+
+            if (savedGenerator) {
+                gameData.generators[i].owned = savedGenerator.owned;
+                gameData.generators[i].cost = savedGenerator.cost;
+            }
+        }
+    } else {
+        gameData.generators[0].owned = parsedSave.miners ?? 0;
+        gameData.generators[0].cost = parsedSave.minerCost ?? 25;
+    }
+
+    if (offlineGold >= 1) {
+        showMessage(`Welcome back! You earned ${Math.floor(offlineGold)} gold while away!`);
+    }
+
     updateDisplay();
+
 }
 
 export function resetGame() {
@@ -35,6 +54,6 @@ export function resetGame() {
         saveGame();
         updateDisplay();
 
-        document.getElementById("message").textContent = "Game Reset!";
+        showMessage("Game Reset!");
     }
 }

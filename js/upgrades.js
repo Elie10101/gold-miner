@@ -11,14 +11,16 @@ export function buyPickaxe() {
     }
 }
 
-export function buyMiner() {
+export function buyGenerator(index) {
     autoMine();
 
-    if(gameData.gold >= gameData.minerCost){
-        gameData.gold -= gameData.minerCost;
-        gameData.miners += 1;
-        gameData.goldPerSecond += 1;
-        gameData.minerCost = Math.ceil(gameData.minerCost * 1.5);
+    const generator = gameData.generators[index];
+
+    if(gameData.gold >= generator.cost){
+        gameData.gold -= generator.cost;
+        generator.owned += 1;
+        generator.cost = Math.ceil(generator.cost * 1.5);
+        gameData.goldPerSecond += generator.production;
         updateDisplay();
     }
 }
