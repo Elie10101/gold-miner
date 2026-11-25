@@ -10,41 +10,53 @@ export function saveGame() {
 }
 
 export function loadGame() {
-    const savedGame = localStorage.getItem("goldMinerSave")
+    const savedGame = localStorage.getItem("goldMinerSave");
 
     if (savedGame !== null){
-        Object.assign(gameData, JSON.parse(savedGame));
+        const parsedSave = JSON.parse(savedGame);
 
-        const secondsAway = Math.max(0, (Math.floor(Date.now() - gameData.lastSaved) / 1000));
+        gameData.gold = parsedSave.gold ?? 0;
+        gameData.goldPerClick = parsedSave.goldPerClick ?? 1;
+        gameData.pickaxeCost = parsedSave.pickaxeCost ?? 10;
+        gameData.lastSaved = parsedSave.lastSaved ?? Date.now();
+
+        if (Array.isArray(parsedSave.generators)) {
+            for (let i = 0; i < gameData.generators.length; i++) {
+                const savedGenerator = parsedSave.generators[i];
+
+                if (savedGenerator) {
+                    gameData.generators[i].owned = savedGenerator.owned;
+                    gameData.generators[i].cost = savedGenerator.cost;
+                }
+            }
+        } else {
+            gameData.generators[0].owned = parsedSave.miners ?? 0;
+            gameData.generators[0].cost = parsedSave.minerCost ?? 25;
+        }
+
+        gameData.goldPerSecond = 0;
+
+        for (let i = 0; i < gameData.generators.length; i++) {
+            const generator = gameData.generators[i];
+
+            gameData.goldPerSecond += generator.owned * generator.production;
+        }
+
+        const secondsAway = Math.max(0, Math.floor((Date.now() - gameData.lastSaved) / 1000));
         const offlineGold = secondsAway * gameData.goldPerSecond;
 
         gameData.gold += offlineGold;
 
         console.log(`You earned ${Math.floor(offlineGold)} gold while away!`);
 
+        if (offlineGold >= 1) {
+            showMessage(`Welcome back! You earned ${Math.floor(offlineGold)} gold while away!`);
+        }
+
         saveGame();
     }
 
-    if (Array.isArray(parsedSave.generators)) {
-        for (let i = 0; i < gameData.generators.length; i++) {
-            const savedGenerator = parsedSave.generators[i];
-
-            if (savedGenerator) {
-                gameData.generators[i].owned = savedGenerator.owned;
-                gameData.generators[i].cost = savedGenerator.cost;
-            }
-        }
-    } else {
-        gameData.generators[0].owned = parsedSave.miners ?? 0;
-        gameData.generators[0].cost = parsedSave.minerCost ?? 25;
-    }
-
-    if (offlineGold >= 1) {
-        showMessage(`Welcome back! You earned ${Math.floor(offlineGold)} gold while away!`);
-    }
-
     updateDisplay();
-
 }
 
 export function resetGame() {
